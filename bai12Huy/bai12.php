@@ -17,25 +17,31 @@ class Product{
     }
 };
 
+function sortByName($listProduct)  { 
+    for ($i = 0; $i < count($listProduct); $i++)
+    {       
+        $loop = $i; 
+        $current = $listProduct[$i];
+        while($loop > 0 && (strlen($listProduct[$loop - 1]->getName()) < strlen($current->getName())))
+        {
+            $listProduct[$loop] = $listProduct[$loop - 1];
+            $loop -= 1; 
+        }
+        $listProduct[$loop] = $current;
+    }
+    return $listProduct;
+}
+
 $product = array(
      new Product("CPU",750,10,1),
      new Product("RAM",50,2,2),
      new Product("HDD",70,1,2),
      new Product("Main",400,3,1),
-     new Product("Keyboadrd",40,8,4),
+     new Product("Keyboard",40,8,4),
      new Product("Mouse",25,50,4),
      new Product("VGA",60,3,3),
      new Product("Monitor",120,28,2),
      new Product("Case",120,28,5),
 );
 
-//Tìm kiếm theo tên
-function findProduct($listProduct, $nameProduct){
-    for ($i = 0; $i < count($listProduct); $i++){
-        if($listProduct[$i]->getName() == $nameProduct){
-            return $listProduct[$i];
-        }
-    };
-};
-
-var_dump(findProduct($product,"CPU"));
+var_dump(sortByName($product));
